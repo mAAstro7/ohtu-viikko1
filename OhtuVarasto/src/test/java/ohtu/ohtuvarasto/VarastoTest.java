@@ -19,6 +19,8 @@ public class VarastoTest {
     public void setUp() {
         varasto = new Varasto(10);
     }
+    
+    
 
     @Test
     public void konstruktoriLuoTyhjanVaraston() {
@@ -37,6 +39,24 @@ public class VarastoTest {
         // saldon pitäisi olla sama kun lisätty määrä
         assertEquals(8, varasto.getSaldo(), vertailuTarkkuus);
     }
+    
+    
+       @Test
+    public void miinusLisaysEiLisaaSaldoa() {
+        varasto.lisaaVarastoon(-1);
+
+        // saldon pitäisi olla sama kun lisätty määrä
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+        @Test
+    public void overLisaysEiLisaaSaldoa() {
+        varasto.lisaaVarastoon(66666666);
+
+        // saldon pitäisi olla sama kun lisätty määrä
+        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
 
     @Test
     public void lisaysLisaaPienentaaVapaataTilaa() {
@@ -64,7 +84,29 @@ public class VarastoTest {
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+    
+       @Test
+    public void miinusOttaminenEiLisääTilaa() {
+        varasto.lisaaVarastoon(8);
 
+        varasto.otaVarastosta(-2);
+
+        // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
+        assertEquals(2, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+
+    
+          @Test
+    public void overiOttaminenEiLisääTilaa() {
+        varasto.lisaaVarastoon(8);
+
+        varasto.otaVarastosta(666);
+
+        // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
+        assertEquals(10, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+
+    
     @Test
     public void konstr() {
         varasto = new Varasto(-1);
